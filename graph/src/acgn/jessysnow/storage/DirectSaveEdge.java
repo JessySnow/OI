@@ -10,7 +10,7 @@ public class DirectSaveEdge {
     /**
      * 查找边，O(n)
      */
-    private static boolean find_edge(List<Edge> edges, int from, int to) {
+    private static boolean findEdge(List<Edge> edges, int from, int to) {
         for (Edge edge : edges) {
             if (edge.from == from && edge.to == to) {
                 return true;
@@ -50,7 +50,7 @@ public class DirectSaveEdge {
         edges.add(new Edge(3, 4));
         edges.add(new Edge(4, 5));
 
-        System.out.println(find_edge(edges, 4, 5));
+        System.out.println(findEdge(edges, 4, 5));
         List<Integer> dfs = dfs(edges, 1, new HashSet<>());
         System.out.println(dfs);
     }
