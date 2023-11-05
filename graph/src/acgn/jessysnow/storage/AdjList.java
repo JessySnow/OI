@@ -53,7 +53,9 @@ public class AdjList {
     }
 
     /**
-     * 深度优先搜索
+     * 深搜, O(n + m) AKA O(n) + O(m)
+     *  O(n) 遍历所有的点的时间复杂度
+     *  O(m) 遍历所有的边的时间复杂度
      */
     private static List<Integer> dfs(List<List<Integer>> adjList, int from, Set<Integer> visited) {
         if (visited.contains(from) || null == adjList.get(from)) {
