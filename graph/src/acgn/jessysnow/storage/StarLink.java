@@ -1,8 +1,6 @@
 package acgn.jessysnow.storage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 链式向前星
@@ -26,6 +24,10 @@ public class StarLink {
         edges.add(newEdge);
     }
 
+    /**
+     * 查找边，O(n)
+     * 如果一个点和图内其他所有的点均直接连接，最差情况下需要遍历从该点出发的所有的边
+     */
     public boolean findEdge(int from, int to) {
         if (-1 == heads[from]) {
             return false;
@@ -43,12 +45,56 @@ public class StarLink {
         return edge.to == to;
     }
 
-    private static class Edge {
+    /**
+     * 深搜
+     */
+    public List<Edge> dfs(int from, Set<Integer> visited) {
+        if (visited.contains(from)) {
+            return Collections.emptyList();
+        }
+
+        ArrayList<Edge> res = new ArrayList<>();
+
+        while (from != -1 && heads[from] != -1) {
+            visited.add(from);
+            Edge edge = edges.get(heads[from]);
+            res.add(edge);
+            res.addAll(dfs(edge.next, visited));
+            from = edge.to;
+        }
+
+        return res;
+    }
+
+    public void allEdges() {
+        for (int from = 0; from < heads.length; ++ from) {
+            if (heads[from] == -1) {
+                continue;
+            }
+            System.out.printf("from:%d\n", from);
+            int edgeIndex = heads[from];
+            while (edgeIndex != -1) {
+                Edge edge = edges.get(edgeIndex);
+                System.out.printf("\tto:%d\n", edge.to);
+                edgeIndex = edge.next;
+            }
+        }
+    }
+
+    public static class Edge {
         public int to;
         public int next;
 
         public Edge(int to) {
             this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "Edge{" +
+                    "to=" + to +
+                    ", next=" + next +
+                    '}';
         }
     }
 
@@ -65,5 +111,6 @@ public class StarLink {
         System.out.println(starLink.findEdge(1, 3));
         System.out.println(starLink.findEdge(3, 5));
         System.out.println(starLink.findEdge(4, 5));
+        starLink.allEdges();
     }
 }
