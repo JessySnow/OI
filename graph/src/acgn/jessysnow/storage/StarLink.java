@@ -46,21 +46,19 @@ public class StarLink {
     }
 
     /**
-     * 深搜
+     * 深搜，O(n + m)
+     *  O(n) 遍历所有的节点
+     *  O(m) 遍历所有的边
      */
-    public List<Edge> dfs(int from, Set<Integer> visited) {
-        if (visited.contains(from)) {
-            return Collections.emptyList();
-        }
+    public List<Edge> dfs(int from) {
+        List<Edge> res = new ArrayList<>();
+        int edgeIndex = heads[from];
 
-        ArrayList<Edge> res = new ArrayList<>();
-
-        while (from != -1 && heads[from] != -1) {
-            visited.add(from);
-            Edge edge = edges.get(heads[from]);
+        while (edgeIndex != -1) {
+            Edge edge = edges.get(edgeIndex);
             res.add(edge);
-            res.addAll(dfs(edge.next, visited));
-            from = edge.to;
+            res.addAll(dfs(edge.to));
+            edgeIndex = edge.next;
         }
 
         return res;
@@ -112,5 +110,6 @@ public class StarLink {
         System.out.println(starLink.findEdge(3, 5));
         System.out.println(starLink.findEdge(4, 5));
         starLink.allEdges();
+        System.out.println(starLink.dfs(1));
     }
 }
