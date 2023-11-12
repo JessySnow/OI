@@ -73,6 +73,30 @@ public class AdjList {
         return res;
     }
 
+    /**
+     * 广搜，O(n + m)
+     */
+    private static List<Integer> bfs(List<List<Integer>> adjList, int from) {
+        Set<Integer> visited = new HashSet<>();
+
+        List<Integer> res = new ArrayList<>();
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.offer(from);
+        while (!queue.isEmpty()) {
+            int tempFrom = queue.poll();
+            if (visited.contains(tempFrom)) {
+                continue;
+            }
+            res.add(tempFrom);
+            visited.add(tempFrom);
+            for (Integer to : adjList.get(tempFrom)) {
+                queue.offer(to);
+            }
+        }
+
+        return res;
+    }
+
 
     public static void main(String[] args) {
         List<List<Integer>> adjList = new ArrayList<>();
@@ -82,16 +106,21 @@ public class AdjList {
         fromOne.add(2);
         ArrayList<Integer> fromTwo = new ArrayList<>();
         fromTwo.add(3);
+        fromTwo.add(4);
         ArrayList<Integer> fromThree = new ArrayList<>();
+        fromThree.add(4);
+        ArrayList<Integer> fromFour = new ArrayList<>();
 
         adjList.add(fromZero);
         adjList.add(fromOne);
         adjList.add(fromTwo);
         adjList.add(fromThree);
+        adjList.add(fromFour);
 
         System.out.println(findEdge(adjList, 1, 2));
         System.out.println(findEdgeOptimized(adjList, 1, 2));
 
         System.out.println(dfs(adjList, 0, new HashSet<>()));
+        System.out.println(bfs(adjList, 0));
     }
 }
