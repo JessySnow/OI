@@ -36,6 +36,31 @@ public class AdjMatrix {
         return res;
     }
 
+    private static List<Integer> bfs(Integer[][] adjMatrix, int from) {
+        Set<Integer> visted = new HashSet<>();
+        List<Integer> res = new ArrayList<>();
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.offer(from);
+
+        while (!queue.isEmpty()) {
+            Integer tempFrom = queue.poll();
+            if (visted.contains(tempFrom)) {
+                continue;
+            }
+
+            visted.add(tempFrom);
+            Integer[] tos = adjMatrix[tempFrom];
+            for (int i = 0; i < tos.length; ++ i) {
+                if (1 == tos[i]) {
+                    res.add(i);
+                    queue.offer(i);
+                }
+            }
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) {
         Integer[][] adjMatrix=  new Integer[5][5];
         Arrays.fill(adjMatrix[0], 0);
@@ -47,9 +72,11 @@ public class AdjMatrix {
         adjMatrix[0][1] = 1;
         adjMatrix[1][2] = 1;
         adjMatrix[2][3] = 1;
+        adjMatrix[2][4] = 1;
         adjMatrix[3][4] = 1;
 
         System.out.println(findEdge(adjMatrix, 2, 3));
         System.out.println(dfs(adjMatrix, 1, new HashSet<>()));
+        System.out.println(bfs(adjMatrix, 1));
     }
 }
