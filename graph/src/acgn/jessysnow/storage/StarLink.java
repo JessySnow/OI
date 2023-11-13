@@ -76,12 +76,12 @@ public class StarLink {
                 continue;
             }
 
-            visited.add(tempFrom);
             int headIndex = heads[tempFrom];
             if (headIndex == -1) {
                 continue;
             }
-            Edge edge = edges.get(headIndex);
+            Edge edge = edges.get(heads[tempFrom]);
+            visited.add(tempFrom);
             while (edge != null) {
                 queue.add(edge.to);
                 res.add(edge.to);
