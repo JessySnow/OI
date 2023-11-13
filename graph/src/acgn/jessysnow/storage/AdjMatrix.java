@@ -36,6 +36,9 @@ public class AdjMatrix {
         return res;
     }
 
+    /**
+     * 广搜, O(n^2)
+     */
     private static List<Integer> bfs(Integer[][] adjMatrix, int from) {
         Set<Integer> visted = new HashSet<>();
         List<Integer> res = new ArrayList<>();

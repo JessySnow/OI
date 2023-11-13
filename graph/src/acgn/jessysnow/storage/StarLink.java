@@ -64,6 +64,36 @@ public class StarLink {
         return res;
     }
 
+    public List<Integer> bfs(int from) {
+        List<Integer> res = new ArrayList<>();
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.offer(from);
+
+        while (!queue.isEmpty()) {
+            Integer tempFrom = queue.poll();
+            if (visited.contains(tempFrom)) {
+                continue;
+            }
+
+            visited.add(tempFrom);
+            int headIndex = heads[tempFrom];
+            if (headIndex == -1) {
+                continue;
+            }
+            Edge edge = edges.get(headIndex);
+            while (edge != null) {
+                queue.add(edge.to);
+                res.add(edge.to);
+                if (edge.next == -1) {
+                    break;
+                }
+                edge = edges.get(edge.next);
+            }
+        }
+        return res;
+    }
+
     public void allEdges() {
         for (int from = 0; from < heads.length; ++ from) {
             if (heads[from] == -1) {
@@ -111,5 +141,6 @@ public class StarLink {
         System.out.println(starLink.findEdge(4, 5));
         starLink.allEdges();
         System.out.println(starLink.dfs(1));
+        System.out.println(starLink.bfs(1));
     }
 }
