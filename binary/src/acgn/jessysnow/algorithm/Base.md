@@ -28,12 +28,13 @@ public int binarySearch(int[] array, int target) {
 
 ### 基础模版的中二分搜索边界
 
+二分搜索的边界和搜索区间有关
+
+基础模版中的搜索区间：[start, end]，属于是左闭右闭的区间范围，所以搜索结束时区间范围不合法的条件应该是 start > end（当 start = end 时依然合法)，当 mid 索引所指向的元素不是目标元素时可以直接跳过该索引（已经搜索过），所以区间范围中的 start 或者 end 更新为 mid + 1 或者 mid - 1
 
 ## 二分搜索左右边界模版
-> 此类问题可以将数组抽象为一个 0, 1 数组，1 代表满足了某种条件，0 表示未满足某种条件
 
-
-
+[Fuck algorithm 模版](https://github.com/labuladong/fucking-algorithm/blob/master/算法思维系列/二分查找详解.md)
 
 ### 最大值最小化问题
 
