@@ -30,7 +30,6 @@ public class AdjList {
      * 优化后的查找边是否存在，需要邻接表对出边进行排序, O(logn)
      *  二分搜索可以从 O(n) 优化至 O(logn)
      */
-    // FIXME 二分搜索的逻辑存在错误
     private static boolean findEdgeOptimized(List<List<Integer>> adjList, int from, int to) {
         List<Integer> fromTo = adjList.get(from);
         if (null == fromTo) {
@@ -38,8 +37,8 @@ public class AdjList {
         }
 
         int left = 0, right = fromTo.size() - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
+        while (left <= right) {
+            int mid = left + ((right - left) / 2);
             if (fromTo.get(mid) == to) {
                 return true;
             } else if (fromTo.get(mid) > to) {
